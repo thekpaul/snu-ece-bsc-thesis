@@ -51,6 +51,9 @@
 \tl_const:Nn \l_snu_ece_bsc_thesis_listtablename_en { List~of~Tables }
 \tl_const:Nn \l_snu_ece_bsc_thesis_listfigurename_en { List~of~Figures }
 
+\tl_const:Nn \l_snu_ece_bsc_thesis_abstractstyle_ko { 초\hspace{3cm}록 }
+\tl_const:Nn \l_snu_ece_bsc_thesis_abstractstyle_en { ABSTRACT }
+
 \bool_if:NTF \l_snu_ece_bsc_thesis_en_bool
   { % English main
     \LoadClass[11pt, a4paper]{report}
@@ -64,7 +67,7 @@
     \captionsetup[table]{font=onehalfspacing}
     \captionsetup[figure]{font=onehalfspacing}
 
-    \let\abstractname\l_snu_ece_bsc_thesis_abstractname_en
+    \let\abstractname\l_snu_ece_bsc_thesis_abstractstyle_en
     \let\contentsname\l_snu_ece_bsc_thesis_contentsname_en
     \let\listtablename\l_snu_ece_bsc_thesis_listtablename_en
     \let\listfigurename\l_snu_ece_bsc_thesis_listfigurename_en
@@ -82,7 +85,7 @@
     \bicaptionsetup[table]{name=표}{name=Table}
     \bicaptionsetup[figure]{name=그림}{name=Figure}
 
-    \let\abstractname\l_snu_ece_bsc_thesis_abstractname_ko
+    \let\abstractname\l_snu_ece_bsc_thesis_abstractstyle_ko
     \let\contentsname\l_snu_ece_bsc_thesis_contentsname_ko
     \let\listtablename\l_snu_ece_bsc_thesis_listtablename_ko
     \let\listfigurename\l_snu_ece_bsc_thesis_listfigurename_ko
@@ -239,14 +242,14 @@
       {
         \tl_if_eq:nnTF { #1 } { ko }
           { % Korean abstract
-            \chapter*{\l_snu_ece_bsc_thesis_abstractname_ko}
+            \chapter*{\centering \l_snu_ece_bsc_thesis_abstractstyle_ko}
             \addcontentsline{toc}{chapter}
               {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_ko}
           }
           {
             \tl_if_eq:nnTF { #1 } { en }
               { % English abstract
-                \chapter*{\l_snu_ece_bsc_thesis_abstractname_en}
+                \chapter*{\centering \l_snu_ece_bsc_thesis_abstractstyle_en}
                 \addcontentsline{toc}{chapter}
                   {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_en}
               }
@@ -255,14 +258,34 @@
                   { Unrecognized~language:~`#1' }
                   { Please~use~either~`ko'~or~`en' }
 
-                \chapter*{\abstractname}
+                \chapter*{\centering \abstractname}
                 \addcontentsline{toc}{chapter}{\abstractname}
               }
           }
       }
       { % No language specified
-        \chapter*{\abstractname}
-        \addcontentsline{toc}{chapter}{\abstractname}
+        \ifthenelse {%
+          \equal{\abstractname}{\l_snu_ece_bsc_thesis_abstractstyle_ko}%
+        }
+          { % Abstract name is unchanged in Korean environment
+            \chapter*{\centering \abstractname}
+            \addcontentsline{toc}{chapter}
+              {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_ko}
+          }
+          {
+            \ifthenelse {%
+              \equal{\abstractname}{\l_snu_ece_bsc_thesis_abstractstyle_en}%
+            }
+              { % Abstract name is unchanged in English environment
+                \chapter*{\centering \abstractname}
+                \addcontentsline{toc}{chapter}
+                  {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_en}
+              }
+              {
+                \chapter*{\centering \abstractname}
+                \addcontentsline{toc}{chapter}{\abstractname}
+              }
+          }
       }
   }
   {
