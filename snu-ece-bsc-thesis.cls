@@ -62,8 +62,8 @@
 
     \RequirePackage[doublespacing]{setspace}
     \RequirePackage{caption}
-    % If the setspace is used in conjuction with the caption package, the caption
-    % will be typeset with single spacing as default.
+    % If the setspace is used in conjuction with the caption package,
+    % the caption will be typeset with single spacing as default.
     \captionsetup[table]{font=onehalfspacing}
     \captionsetup[figure]{font=onehalfspacing}
 
@@ -71,6 +71,13 @@
     \let\contentsname\l_snu_ece_bsc_thesis_contentsname_en
     \let\listtablename\l_snu_ece_bsc_thesis_listtablename_en
     \let\listfigurename\l_snu_ece_bsc_thesis_listfigurename_en
+
+    % Title and ToC Formatting
+    \RequirePackage{titlesec}
+
+    \titlespacing*{\chapter}{0pt}{-10mm}{10mm}
+    \titleformat{\chapter}[block]{\centering \huge \bfseries}%
+                {Chapter\ \thechapter}{22pt}{}
   }
   { % Korean main
     \LoadClass[10pt, a4paper]{report}
@@ -89,6 +96,13 @@
     \let\contentsname\l_snu_ece_bsc_thesis_contentsname_ko
     \let\listtablename\l_snu_ece_bsc_thesis_listtablename_ko
     \let\listfigurename\l_snu_ece_bsc_thesis_listfigurename_ko
+
+    % Title and ToC Formatting
+    \RequirePackage{titlesec}
+
+    \titlespacing*{\chapter}{0pt}{-10mm}{10mm}
+    \titleformat{\chapter}[block]{\centering \huge \bfseries}%
+                {제\ \thechapter\ 장}{20pt}{}
   }
 
 
@@ -242,14 +256,14 @@
       {
         \tl_if_eq:nnTF { #1 } { ko }
           { % Korean abstract
-            \chapter*{\centering \l_snu_ece_bsc_thesis_abstractstyle_ko}
+            \chapter*{\l_snu_ece_bsc_thesis_abstractstyle_ko}
             \addcontentsline{toc}{chapter}
               {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_ko}
           }
           {
             \tl_if_eq:nnTF { #1 } { en }
               { % English abstract
-                \chapter*{\centering \l_snu_ece_bsc_thesis_abstractstyle_en}
+                \chapter*{\l_snu_ece_bsc_thesis_abstractstyle_en}
                 \addcontentsline{toc}{chapter}
                   {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_en}
               }
@@ -258,7 +272,7 @@
                   { Unrecognized~language:~`#1' }
                   { Please~use~either~`ko'~or~`en' }
 
-                \chapter*{\centering \abstractname}
+                \chapter*{\abstractname}
                 \addcontentsline{toc}{chapter}{\abstractname}
               }
           }
@@ -268,7 +282,7 @@
           \equal{\abstractname}{\l_snu_ece_bsc_thesis_abstractstyle_ko}%
         }
           { % Abstract name is unchanged in Korean environment
-            \chapter*{\centering \abstractname}
+            \chapter*{\abstractname}
             \addcontentsline{toc}{chapter}
               {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_ko}
           }
@@ -277,12 +291,12 @@
               \equal{\abstractname}{\l_snu_ece_bsc_thesis_abstractstyle_en}%
             }
               { % Abstract name is unchanged in English environment
-                \chapter*{\centering \abstractname}
+                \chapter*{\abstractname}
                 \addcontentsline{toc}{chapter}
                   {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_en}
               }
               {
-                \chapter*{\centering \abstractname}
+                \chapter*{\abstractname}
                 \addcontentsline{toc}{chapter}{\abstractname}
               }
           }
