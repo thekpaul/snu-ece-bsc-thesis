@@ -76,7 +76,7 @@
     \RequirePackage{titlesec}
 
     \titlespacing*{\chapter}{0pt}{-10mm}{10mm}
-    \titleformat{\chapter}[block]{\centering \huge \bfseries}%
+    \titleformat{\chapter}[block]{\centering \huge \bfseries}
                 {Chapter\ \thechapter}{22pt}{}
   }
   { % Korean main
@@ -101,7 +101,7 @@
     \RequirePackage{titlesec}
 
     \titlespacing*{\chapter}{0pt}{-10mm}{10mm}
-    \titleformat{\chapter}[block]{\centering \huge \bfseries}%
+    \titleformat{\chapter}[block]{\centering \huge \bfseries}
                 {제\ \thechapter\ 장}{20pt}{}
   }
 
@@ -278,18 +278,14 @@
           }
       }
       { % No language specified
-        \ifthenelse {%
-          \equal{\abstractname}{\l_snu_ece_bsc_thesis_abstractstyle_ko}%
-        }
+        \tl_if_eq:NNTF \abstractname \l_snu_ece_bsc_thesis_abstractstyle_ko
           { % Abstract name is unchanged in Korean environment
             \chapter*{\abstractname}
             \addcontentsline{toc}{chapter}
               {\text_purify:V\l_snu_ece_bsc_thesis_abstractname_ko}
           }
           {
-            \ifthenelse {%
-              \equal{\abstractname}{\l_snu_ece_bsc_thesis_abstractstyle_en}%
-            }
+            \tl_if_eq:NNTF \abstractname \l_snu_ece_bsc_thesis_abstractstyle_en
               { % Abstract name is unchanged in English environment
                 \chapter*{\abstractname}
                 \addcontentsline{toc}{chapter}
